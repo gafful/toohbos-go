@@ -1,0 +1,38 @@
+syntax = "proto3";
+package proto;
+
+import "google/protobuf/timestamp.proto";
+
+// The go_package option defines the import path of the package which will contain all the generated code for this file. 
+option go_package = "/dummy";
+
+message ProtoRequest {
+  string query = 1;
+  string date_tag = 2;
+}
+
+// Can be embedded in Response message since its only used there
+enum ProtoResponseType {
+  WAN = 0;
+  TOOH = 1;
+}
+  
+message ProtoResponse {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  string image_url = 4;
+  google.protobuf.Timestamp date = 5;
+  string request = 6;
+  optional ProtoResponseType type = 7;
+}
+
+message ProtoResponseList {
+  repeated ProtoResponse items = 1;
+}
+
+message ProtoResponsePage {
+  int32 count = 1;
+  int32 total = 2;
+  ProtoResponseList items = 3;
+}
